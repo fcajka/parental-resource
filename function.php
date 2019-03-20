@@ -105,6 +105,31 @@ function askForm()
 <input name="sendquestion" class="sendquestion" type="submit" value="Ask Question" />	
 
 </form>
+  
+    
     
 <?php
+}
+
+function loginForm()
+{
+    ?>
+    
+        <form action="index.php?section=adminportal" method="post" id="login">
+     
+    <label>E-mail: </label>
+    <input name="loginemail" type="text" size="50" value="<?php if(isset($_REQUEST["loginemail"])){print($_REQUEST["loginemail"]);}?>" maxlength="255" id="loginemail" required/>
+    <br />
+    <br />
+    <label>Password: </label>
+    <input name="loginpassword" type="password" size="50" value="" maxlength="255" id="loginpassword" required/>
+    <br />
+    <br />
+    <input name="login" class="login" type="submit" value="Login" />	
+    
+    </form>
+  
+    
+    
+    <?php
 }

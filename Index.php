@@ -138,7 +138,7 @@ if($section == "adminportal") {
     <br />
     <br />
     <label>Password: </label>
-    <input name="email" type="password" size="50" value="" maxlength="255" id="password" required/>
+    <input name="loginpassword" type="password" size="50" value="" maxlength="255" id="loginpassword" required/>
     <br />
     <br />
     <input name="login" class="login" type="submit" value="Login" />	
@@ -152,12 +152,45 @@ if($section == "adminportal") {
         //button login was clicked
         //check credentials
         
+        $loginemail = $_POST["loginemail"];
+        $loginpassword = $_POST["loginpassword"];
         
-        //if correct -> go to homepage adminportal
+        //prevent from sql injection!!!
         
+        $connection = db_connect(); //establish connection with database
+        $result = mysqli_query($connection, "SELECT email, password FROM admin_t WHERE email='$loginemail'");
+        $row = mysqli_fetch_array($result);
         
+        if(!(($row['email'] == $loginemail ) && ($row['password'] == SHA1($loginpassword))))
+        {
+
+            //if credentials not correct -> print form again with message
+            
+            ?>
+    
+            <h3>Admin Portal</h3>
+
+            <p>Log in to with your account to the admin portal.</p>
+            <br />
+            <p>The username or password you have entered is invalid. Please try again.</p>
+            
+    
+   <?php
+            
         
-        //if credentials not correct -> print form again with message
+            loginForm(); //print login form
+            
+        }
+        else{
+            //if correct -> go to homepage adminportal
+            print('LOGIN SUCCESFULL - WELCOME TO ADMIN PORTAL');
+            
+           
+            
+            
+            
+            
+        }
         
     }
 
